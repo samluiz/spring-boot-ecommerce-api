@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.saurs.ecommerce.entities.Category;
 import com.saurs.ecommerce.entities.Order;
+import com.saurs.ecommerce.entities.OrderItem;
 import com.saurs.ecommerce.entities.Product;
 import com.saurs.ecommerce.entities.User;
 import com.saurs.ecommerce.entities.enums.OrderStatus;
 import com.saurs.ecommerce.repositories.CategoryRepository;
+import com.saurs.ecommerce.repositories.OrderItemRepository;
 import com.saurs.ecommerce.repositories.OrderRepository;
 import com.saurs.ecommerce.repositories.ProductRepository;
 import com.saurs.ecommerce.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 
   @Autowired
   private ProductRepository productRepository;
+
+  @Autowired
+  private OrderItemRepository orderItemRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -66,6 +71,13 @@ public class TestConfig implements CommandLineRunner {
     p3.getCategories().add(c2);
 
     productRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+    OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+    OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+    OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+    OrderItem oi4 = new OrderItem(o3, p2, 2, p2.getPrice());
+
+    orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
   }
 }
