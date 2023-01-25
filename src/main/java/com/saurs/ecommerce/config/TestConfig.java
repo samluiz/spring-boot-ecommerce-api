@@ -18,7 +18,6 @@ import com.saurs.ecommerce.entities.enums.OrderStatus;
 import com.saurs.ecommerce.repositories.CategoryRepository;
 import com.saurs.ecommerce.repositories.OrderItemRepository;
 import com.saurs.ecommerce.repositories.OrderRepository;
-import com.saurs.ecommerce.repositories.PaymentRepository;
 import com.saurs.ecommerce.repositories.ProductRepository;
 import com.saurs.ecommerce.repositories.UserRepository;
 
@@ -41,9 +40,6 @@ public class TestConfig implements CommandLineRunner {
   @Autowired
   private OrderItemRepository orderItemRepository;
 
-  @Autowired
-  private PaymentRepository paymentRepository;
-
   @Override
   public void run(String... args) throws Exception {
     
@@ -52,9 +48,9 @@ public class TestConfig implements CommandLineRunner {
     
     userRepository.saveAll(Arrays.asList(u1, u2));
 
-    Order o1 = new Order(null, Instant.parse("2023-01-24T13:03:44Z"), OrderStatus.WAITING_PAYMENT, u1);
-    Order o2 = new Order(null, Instant.parse("2023-01-12T16:12:33Z"), OrderStatus.PAID, u2);
-    Order o3 = new Order(null, Instant.parse("2023-01-25T05:43:20Z"), OrderStatus.WAITING_PAYMENT, u1);
+    Order o1 = new Order(null, Instant.parse("2023-01-24T13:03:44Z"), OrderStatus.PAID, u1);
+    Order o2 = new Order(null, Instant.parse("2023-01-12T16:12:33Z"), OrderStatus.WAITING_PAYMENT, u2);
+    Order o3 = new Order(null, Instant.parse("2023-01-25T05:43:20Z"), OrderStatus.SHIPPED, u1);
 
     orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 
@@ -85,8 +81,10 @@ public class TestConfig implements CommandLineRunner {
     orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
     Payment pay1 = new Payment(null, Instant.parse("2023-01-25T12:01:32Z"), o1);
+    o1.setPayment(pay1);
     Payment pay2 = new Payment(null, Instant.parse("2023-01-17T12:01:32Z"), o3);
+    o3.setPayment(pay2);
 
-    paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+    orderRepository.saveAll(Arrays.asList(o1, o3));
   }
 }

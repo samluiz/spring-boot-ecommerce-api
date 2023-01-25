@@ -4,12 +4,11 @@ import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -24,8 +23,8 @@ public class Payment {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'", timezone = "GMT")
   private Instant moment;
 
-  @OneToOne(cascade = CascadeType.DETACH)
-  @JoinColumn(name = "order_id")
+  @OneToOne
+  @MapsId
   private Order order;
 
   public Payment() {
