@@ -11,12 +11,14 @@ import org.springframework.context.annotation.Profile;
 import com.saurs.ecommerce.entities.Category;
 import com.saurs.ecommerce.entities.Order;
 import com.saurs.ecommerce.entities.OrderItem;
+import com.saurs.ecommerce.entities.Payment;
 import com.saurs.ecommerce.entities.Product;
 import com.saurs.ecommerce.entities.User;
 import com.saurs.ecommerce.entities.enums.OrderStatus;
 import com.saurs.ecommerce.repositories.CategoryRepository;
 import com.saurs.ecommerce.repositories.OrderItemRepository;
 import com.saurs.ecommerce.repositories.OrderRepository;
+import com.saurs.ecommerce.repositories.PaymentRepository;
 import com.saurs.ecommerce.repositories.ProductRepository;
 import com.saurs.ecommerce.repositories.UserRepository;
 
@@ -39,6 +41,9 @@ public class TestConfig implements CommandLineRunner {
   @Autowired
   private OrderItemRepository orderItemRepository;
 
+  @Autowired
+  private PaymentRepository paymentRepository;
+
   @Override
   public void run(String... args) throws Exception {
     
@@ -47,7 +52,7 @@ public class TestConfig implements CommandLineRunner {
     
     userRepository.saveAll(Arrays.asList(u1, u2));
 
-    Order o1 = new Order(null, Instant.parse("2023-01-24T13:03:44Z"), OrderStatus.SHIPPED, u1);
+    Order o1 = new Order(null, Instant.parse("2023-01-24T13:03:44Z"), OrderStatus.WAITING_PAYMENT, u1);
     Order o2 = new Order(null, Instant.parse("2023-01-12T16:12:33Z"), OrderStatus.PAID, u2);
     Order o3 = new Order(null, Instant.parse("2023-01-25T05:43:20Z"), OrderStatus.WAITING_PAYMENT, u1);
 
@@ -79,5 +84,9 @@ public class TestConfig implements CommandLineRunner {
 
     orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
+    Payment pay1 = new Payment(null, Instant.parse("2023-01-25T12:01:32Z"), o1);
+    Payment pay2 = new Payment(null, Instant.parse("2023-01-17T12:01:32Z"), o3);
+
+    paymentRepository.saveAll(Arrays.asList(pay1, pay2));
   }
 }

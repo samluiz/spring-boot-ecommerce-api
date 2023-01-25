@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,6 +36,9 @@ public class Order {
 
   @OneToMany(mappedBy = "id.order")
   private Set<OrderItem> items = new HashSet<>();
+
+  @OneToOne(mappedBy = "order")
+  private Payment payment;
 
   public Order() {
   }
