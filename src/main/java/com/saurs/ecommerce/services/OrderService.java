@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.saurs.ecommerce.entities.Order;
 import com.saurs.ecommerce.repositories.OrderRepository;
+import com.saurs.ecommerce.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class OrderService {
@@ -21,11 +22,10 @@ public class OrderService {
 
   public Order findById(Long id) {
     Optional<Order> obj = repository.findById(id);
-    if (obj.isEmpty()) {
-      return null;
-    }
-    return obj.get();
+    return obj.orElseThrow(() -> new ResourceNotFoundException(id));
   }
+
+  
 
 
 }

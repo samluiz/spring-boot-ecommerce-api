@@ -3,6 +3,8 @@ package com.saurs.ecommerce.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -13,6 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
+@DynamicUpdate
 @Table(name="tb_user")
 public class User {
 

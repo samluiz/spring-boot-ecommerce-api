@@ -3,6 +3,7 @@ package com.saurs.ecommerce.entities;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class Payment {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'", timezone = "GMT")
   private Instant moment;
 
+  @JsonIgnore
   @OneToOne
   @MapsId
   private Order order;

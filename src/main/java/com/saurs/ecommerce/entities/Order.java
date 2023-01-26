@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.saurs.ecommerce.entities.enums.OrderStatus;
 
@@ -19,6 +21,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
+@DynamicUpdate
 @Table(name = "tb_order")
 public class Order {
   
@@ -99,6 +102,14 @@ public class Order {
 
   public void setPayment(Payment payment) {
     this.payment = payment;
+  }
+
+  public Double getTotal() {
+    double sum = 0.0;
+    for (OrderItem x : items) {
+      sum += x.getSubTotal();
+    }
+    return sum;
   }
 
   @Override
