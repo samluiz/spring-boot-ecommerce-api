@@ -27,5 +27,9 @@ public class OrderItemService {
     return obj.get();
   }
 
+  public OrderItem addItem(OrderItem obj) {
+    return repository.save(obj);
+  }
+
 
 }

@@ -3,8 +3,6 @@ package com.saurs.ecommerce.entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -91,7 +89,6 @@ public class Product {
     return categories;
   }
 
-  @JsonIgnore
   public Set<Order> getOrders() {
     Set<Order> orders = new HashSet<>();
     for (OrderItem x : items) {
