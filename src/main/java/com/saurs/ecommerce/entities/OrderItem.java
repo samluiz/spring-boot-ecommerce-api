@@ -1,6 +1,5 @@
 package com.saurs.ecommerce.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.saurs.ecommerce.entities.pk.OrderItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -27,7 +26,6 @@ public class OrderItem {
     this.price = price;
   }
 
-  @JsonIgnore
   public Order getOrder() {
     return id.getOrder();
   }

@@ -112,6 +112,10 @@ public class Order {
     return sum;
   }
 
+  public Integer getNumberOfItems() {
+    return this.items.size();
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
